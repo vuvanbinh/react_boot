@@ -7,15 +7,20 @@ export default class ListEmployeeComponent extends Component {
         super(props)
 
         this.state = {
-            employees: [
-
-            ]
+            count: 0,
+            esss: [
+                { id: 1, full_name: 'bing', age: 12, address: 'asdf', email: 'asdfasdf' },
+                { id: 2, full_name: 'bing', age: 12, address: 'asdf', email: 'asdfasdf' },
+                { id: 3, full_name: 'bing', age: 12, address: 'asdf', email: 'asdfasdf' },
+                { id: 4, full_name: 'bing', age: 12, address: 'asdf', email: 'asdfasdf' }
+            ],
+            employees: []
         }
     }
 
     componentDidMount() {
         EmployeeService.getEmployee().then((response) => {
-            this.setState({ employees: response.data.content })
+            this.setState({ employees: response.data })
         })
     }
 
@@ -28,27 +33,25 @@ export default class ListEmployeeComponent extends Component {
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Full Name</th>
-                                <th>Email</th>
                                 <th>age</th>
                                 <th>Address</th>
-                                <th></th>
+                                <th>Email</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             {
-                                this.state.employees.map(
-                                    em =>
-                                        <tr key={em.id}>
-                                            <td>{em.fullName}</td>
-                                            <td>{em.email}</td>
-                                            <td>{em.age}</td>
-                                            <td>{em.address}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary">Update</button>
-                                            </td>
-                                        </tr>
+                                this.state.esss.map((emp, index) =>
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{emp.full_name}</td>
+                                        <td>{emp.age}</td>
+                                        <td>{emp.address}</td>
+                                        <td>{emp.email}</td>
+                                        <td>{emp.id}</td>
+                                    </tr>
                                 )
                             }
                         </tbody>
